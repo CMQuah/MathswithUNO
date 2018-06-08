@@ -35,8 +35,9 @@ function checkcardtype() {
 
 function randomcardassign() {
 
+    //move 0 for number cardholder 
     temppercent = Math.floor(Math.random() * 10);
-    tempnumbercard = Math.floor(Math.random() * 10);
+    tempnumbercard = Math.floor(Math.random() * 10);  //check size
     tempcolourcard = colour[Math.floor(Math.random() * 5)];
 
     if (temppercent >= 3) {
@@ -124,9 +125,11 @@ function usepcard(pselection) {
 
 function ranindiassign() {
 
-    return colour[Math.floor(Math.random() * 5)];
+    return colour[Math.floor(Math.random() * 4)];
 
 }
+
+
 
 
 
