@@ -21,15 +21,20 @@ var chandnum = [];
 var chandpower = [];
 
 //onboard 
+//card
 var col1;
 var num1;
 var col2;
 var num2;
+//indicator or strip 
 var colourind1;
 var colourind2;
 
-function checkcardtype() {
 
+
+function checkcardtype() {
+    
+    //Kamil's 
     //return value to randomcardassign add condition to randomcardassign
 }
 

@@ -33,7 +33,7 @@
 			<div id="CardContainer1">
 			</div>
 			<div id="Operators">
-				<span style="color: white; font-size:100px;">+</span>
+				<span style="color: white; font-size:100px;"></span>
 			</div>
 			<div id="CardIndicator2">
 			</div>
@@ -59,30 +59,22 @@
 			<div id="PowerContentContainer">
 				<div id="NumberCardContainer">
 					<div id="NumberCardHolder1">
-						<div id="NumberCard1" draggable="true" ondragstart="drag(event)"><div style="width: 100%; height: 100%; background-color: red; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">1</span></div></div>
 					</div>
 					<div id="NumberCardHolder2">
-						<div id="NumberCard2" draggable="true" ondragstart="drag(event)"><div style="width: 100%; height: 100%; background-color: yellow; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">2</span></div></div>
 					</div>
 					<div id="NumberCardHolder3">
-						<div id="NumberCard3" draggable="true" ondragstart="drag(event)"><div style="width: 100%; height: 100%; background-color: green; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">3</span></div></div>
 					</div>
 					<div id="NumberCardHolder4">
-						<div id="NumberCard4" draggable="true" ondragstart="drag(event)"><div style="width: 100%; height: 100%; background-color: blue; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">4</span></div></div>
 					</div>
 				</div>
 				<div id="ActionCardContainer" style="display: none;">
 					<div id="ActionCardHolder1">
-						<div id="ActionCard1" draggable="true" ondragstart="drag(event)">ACTION 1</div>
 					</div>
 					<div id="ActionCardHolder2">
-						<div id="ActionCard2" draggable="true" ondragstart="drag(event)">ACTION 2</div>
 					</div>
 					<div id="ActionCardHolder3">
-						<div id="ActionCard3" draggable="true" ondragstart="drag(event)">ACTION 3</div>
 					</div>
 					<div id="ActionCardHolder4">
-						<div id="ActionCard4" draggable="true" ondragstart="drag(event)">ACTION 4</div>
 					</div>
 				</div>
 			</div>
@@ -420,18 +412,116 @@
 	document.getElementById("howToPlay").onclick = function(){howToPlay()};
 	document.getElementById("scoreBoard").onclick = function(){scoreBoard()};
 	
+	var InitialDraw = 0;
+	var CardId =0;
+	var cardDrawType;
+	var NumberCardSlot = [0,0,0,0];
+	var PowerCardSlot = [0,0,0,0];
+	
 	function startGame(){
+		InitialDraw = 1;
 		document.getElementById("GameContainer").style.display = "block";
 		document.getElementById("MainContainer").style.display = "none";
 		document.body.style.backgroundImage = "url('image/gamebackground.png')";
-		document.getElementById("CardContainer1").insertAdjacentHTML( 'beforeend', drawCard() );
-		document.getElementById("CardContainer2").insertAdjacentHTML( 'beforeend', drawCard() );
-		document.getElementById("CardIndicator1").style.backgroundColor = generatedIndicator();
-		document.getElementById("CardIndicator2").style.backgroundColor = generatedIndicator();
+		updateRandomFirstCard();
+		updateRandomSecondCard();
+		updateRandomIndicator1();
+		updateRandomIndicator2();
+		updateRandomOperator();
+		InitialDraw = 0;
+		initialdrawHoldingCard();
+		
+		/* Refresh page dialog*/
 		window.onbeforeunload = function ()
 		{
 			return "";
 		};
+	}
+	
+	/** Initial Draw Holding Card**/
+	function initialdrawHoldingCard(){
+		var i = 1;
+		var pcCounter = 1;
+		var ncCounter = 1;
+		while (i < 5){
+			var cardItem = drawCard();
+			
+			if(cardDrawType == 0){
+				document.getElementById("NumberCardHolder"+ncCounter).insertAdjacentHTML( 'beforeend', cardItem );
+				var cardDrawed = document.querySelectorAll('#'+"NumberCardHolder"+ncCounter+' div')[0];
+				cardDrawed.setAttribute('draggable', true);
+				cardDrawed.id = "CardId"+CardId;
+				NumberCardSlot[ncCounter-1] = 1;
+				CardId++;
+				ncCounter++;
+			}else{
+				document.getElementById("ActionCardHolder"+pcCounter).insertAdjacentHTML( 'beforeend', cardItem );
+				PowerCardSlot[pcCounter-1] = 1;
+				pcCounter++;
+			}
+			i++;
+		}
+	}
+	
+	function drawHoldingCard(){
+		var cardItem = drawCard();
+			console.log(cardDrawType);
+			console.log(CardId);
+			console.log(NumberCardSlot);
+			console.log(PowerCardSlot);
+		if(cardDrawType == 0){
+			var i = 0;
+			while (i < 4){
+				if(NumberCardSlot[i] == 0){
+					document.getElementById("NumberCardHolder"+(i+1)).insertAdjacentHTML( 'beforeend', cardItem );
+					var cardDrawed = document.querySelectorAll('#'+"NumberCardHolder"+(i+1)+' div')[0];
+					cardDrawed.setAttribute('draggable', true);
+					cardDrawed.id = "CardId"+CardId;
+					NumberCardSlot[i] = 1;
+					CardId++;
+					break;
+				}
+				i++;
+			}
+		}else{
+			var i = 0;
+			while (i < 4){
+				if(PowerCardSlot[i] == 0){
+					document.getElementById("ActionCardHolder"+(i+1)).insertAdjacentHTML( 'beforeend', cardItem );
+					PowerCardSlot[i] = 1;
+					break;
+				}
+				i++;
+			}
+		}
+		
+
+	}
+	
+	/*function drawNumberCardforHolding(){
+		var cardDrawed = document.querySelectorAll('#'+"NumberCardHolder"+ncCounter+' div')[0]
+		cardDrawed.setAttribute('draggable', true);
+		cardDrawed.id = "CardId"+; 
+	}*/
+	
+	function updateRandomFirstCard(){
+		document.getElementById("CardContainer1").insertAdjacentHTML( 'beforeend', drawCard() );
+	}
+	
+	function updateRandomSecondCard(){
+		document.getElementById("CardContainer2").insertAdjacentHTML( 'beforeend', drawCard() );
+	}
+	
+	function updateRandomIndicator1(){
+		document.getElementById("CardIndicator1").style.backgroundColor = generatedIndicator();
+	}
+	
+	function updateRandomIndicator2(){
+		document.getElementById("CardIndicator2").style.backgroundColor = generatedIndicator();
+	}	
+
+	function updateRandomOperator(){
+		document.getElementById("Operators").innerHTML = '<span style="color: white; font-size:100px;">'+generatedOperator()+'</span>';
 	}
 	
 	function howToPlay(){
@@ -443,6 +533,7 @@
 		document.getElementById("scoreBoardContainer").style.display = "block";
 		document.getElementById("MainContainer").style.display = "none";
 	}
+	
 	document.getElementById("GameBottomBar").onclick = function() { showBottomDialog()};
 	document.getElementById("NumberCardTab").onclick = function() { showNumberCard() };
 	document.getElementById("ActionCardTab").onclick = function() { showActionCard() };
@@ -494,84 +585,48 @@
 		}
 		
 		closeBottomDialog();
-		/** Stopped Here**/
-		if(document.getElementById("NumberCardHolder1").innerHTML == ""){
-			console.log(document.getElementById("NumberCardHolder1").insertAdjacentHTML( 'beforeend', drawCard() ));
-			document.getElementById("NumberCardHolder1").insertAdjacentHTML( 'beforeend', drawCard() );
-		}else if(document.getElementById("NumberCardHolder2").innerHTML == ""){
-			console.log(document.getElementById("NumberCardHolder1").insertAdjacentHTML( 'beforeend', drawCard() ));
-			document.getElementById("NumberCardHolder2").insertAdjacentHTML( 'beforeend', drawCard() );	
-		}else if(document.getElementById("NumberCardHolder3").innerHTML == ""){
-			console.log(document.getElementById("NumberCardHolder1").insertAdjacentHTML( 'beforeend', drawCard() ));
-			document.getElementById("NumberCardHolder3").insertAdjacentHTML( 'beforeend', drawCard() );	
-		}else if(document.getElementById("NumberCardHolder4").innerHTML == ""){
-			console.log(document.getElementById("NumberCardHolder1").insertAdjacentHTML( 'beforeend', drawCard() ));
-			document.getElementById("NumberCardHolder4").insertAdjacentHTML( 'beforeend', drawCard() );	
-		}
 		
 		document.getElementById("PowerBottomBar").style.pointerEvents = 'auto';
 	}
 	
+	var colour = ['red', 'blue', 'green', 'yellow'];
+	var powercard = ['reversecard', 'skip', 'operatorchanger', 'addmove', 'indicatorchange'];
+	var operation = ['+', '-', 'x', '÷'];
+	var chandnum = [];
+	var chandpower = []; 
+	
 	function drawCard(){
-		//Random Number Card
-		var number = Math.floor((Math.random() * 10));
-		var colour = Math.floor((Math.random() * 4)+1);
-		var generatedColour;
-		switch (colour){
-			case 1:
-				generatedColour = "red";
-				break;
-			case 2:
-				generatedColour = "blue";
-				break;
-			case 3:
-				generatedColour = "yellow";
-				break;
-			case 4:
-				generatedColour = "green";
-				break;
-				/* var colour = ['red', 'blue', 'green', 'yellow'];
-var powercard = ['reversecard', 'skip', 'operatorchanger', 'addmove', 'indicatorchange'];
-var operation = ['+', '-', 'x', '/'];
-var chandnum = [];
-var chandpower = []; */
-/* 			temppercent = Math.floor(Math.random() * 10);
-    tempnumbercard = Math.floor(Math.random() * 10);
-    tempcolourcard = colour[Math.floor(Math.random() * 5)];
-
-    if (temppercent>=3){
-
-    chandnum.push([tempnumbercard, tempcolourcard]);
-    }
-
-    //chances to be added and at least on number card to be added
-    else{
-    chadpower.push(powercard[Math.floor(Math.random() * 4)]);
-    } */
-		}
-		var cardElement = '<div><div style="width: 100%; height: 100%; background-color: '+generatedColour+'; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">'+number+'</span></div>';
-		return cardElement;
+		temppercent = Math.floor(Math.random() * 10);
+		tempnumbercard = Math.floor(Math.random() * 10);
+		tempcolourcard = colour[Math.floor(Math.random() * 4)];
+		
+		if(InitialDraw > 0){
+			var cardElement = '<div ondragstart="drag(event)"><div style="width: 100%; height: 100%; background-color: '+tempcolourcard+'; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">'+tempnumbercard+'</span></div>';
+			cardDrawType = 0;
+			return cardElement;
+		}else{
+			if (temppercent>=3){
+				var cardElement = '<div ondragstart="drag(event)"><div style="width: 100%; height: 100%; background-color: '+tempcolourcard+'; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">'+tempnumbercard+'</span></div>';
+				cardDrawType = 0;
+				return cardElement;
+				//chandnum.push([tempnumbercard, tempcolourcard]);
+			}
+			//chances to be added and at least on number card to be added
+			else{
+				//Return power card HTML.
+				cardDrawType = 1;
+				//chadpower.push(powercard[Math.floor(Math.random() * 4)]);
+			}
+		} 
+		
 	}
 	
 	function generatedIndicator(){
-		var colour = Math.floor((Math.random() * 4)+1);
-		var generatedColour;
-		switch (colour){
-			case 1:
-				generatedColour = "red";
-				break;
-			case 2:
-				generatedColour = "blue";
-				break;
-			case 3:
-				generatedColour = "yellow";
-				break;
-			case 4:
-				generatedColour = "green";
-				break;
-		}
-		
-		return generatedColour;
+		return colour[Math.floor(Math.random() * 4)];
+	}
+	
+	function generatedOperator(){
+		return operation[Math.floor(Math.random() * 4)];
 	}
 	
 	function checkAnswer(ele){
@@ -592,13 +647,14 @@ var chandpower = []; */
 				case "X":
 					answer = Number(card1) * Number(card2);
 					break;
-				case "/":
+				case "÷":
 					answer = Number(card1) / Number(card2);
 					break;
 			}
 
 			if (input == answer){
 				alert("Correct");
+				document.getElementById("AnswerInput").disabled = true;
 				var score = document.getElementById("currentScore").innerHTML;
 				var move = document.getElementById("currentMoveLeft").innerHTML;
 				var newScore = Number(score)+1;
@@ -606,13 +662,20 @@ var chandpower = []; */
 				document.getElementById("currentScore").innerHTML = newScore;
 				document.getElementById("currentMoveLeft").innerHTML = move;
 				placeCardTurn();
+				updateRandomOperator();
+				drawHoldingCard();
+				document.getElementById("AnswerInput").disabled = false;
 			}
 			else{
-				alert("Wrong, the answer is "+answer);
+				alert("Wrong, the answer is " + answer);
+				document.getElementById("AnswerInput").disabled = true;
 				var move = document.getElementById("currentMoveLeft").innerHTML;
 				var move= Number(move) - 1;
 				document.getElementById("currentMoveLeft").innerHTML = move;
 				placeCardTurn();
+				updateRandomOperator();
+				drawHoldingCard();
+				document.getElementById("AnswerInput").disabled = false;
 			}
 		}
 	}
