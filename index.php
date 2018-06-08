@@ -501,7 +501,7 @@
 	/*function drawNumberCardforHolding(){
 		var cardDrawed = document.querySelectorAll('#'+"NumberCardHolder"+ncCounter+' div')[0]
 		cardDrawed.setAttribute('draggable', true);
-		cardDrawed.id = "CardId"+;
+		cardDrawed.id = "CardId"+; t
 	}*/
 	
 	function updateRandomFirstCard(){
