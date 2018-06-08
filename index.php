@@ -530,6 +530,24 @@
 			case 4:
 				generatedColour = "green";
 				break;
+				/* var colour = ['red', 'blue', 'green', 'yellow'];
+var powercard = ['reversecard', 'skip', 'operatorchanger', 'addmove', 'indicatorchange'];
+var operation = ['+', '-', 'x', '/'];
+var chandnum = [];
+var chandpower = []; */
+/* 			temppercent = Math.floor(Math.random() * 10);
+    tempnumbercard = Math.floor(Math.random() * 10);
+    tempcolourcard = colour[Math.floor(Math.random() * 5)];
+
+    if (temppercent>=3){
+
+    chandnum.push([tempnumbercard, tempcolourcard]);
+    }
+
+    //chances to be added and at least on number card to be added
+    else{
+    chadpower.push(powercard[Math.floor(Math.random() * 4)]);
+    } */
 		}
 		var cardElement = '<div><div style="width: 100%; height: 100%; background-color: '+generatedColour+'; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">'+number+'</span></div>';
 		return cardElement;

@@ -14,9 +14,9 @@ let counter = document.querySelector(".moves");
 
 //cards on hand
 
-var colour = ['red', 'blue', 'green', 'yellow']
-var powercard = ['reversecard', 'skip', 'operatorchanger', 'addmove', 'indicatorchange']
-var operation = ['+', '-', '*', '/']
+var colour = ['red', 'blue', 'green', 'yellow'];
+var powercard = ['reversecard', 'skip', 'operatorchanger', 'addmove', 'indicatorchange'];
+var operation = ['+', '-', 'x', '/'];
 var chandnum = [];
 var chandpower = [];
 
@@ -28,17 +28,26 @@ var num2;
 var colourind1;
 var colourind2;
 
+function checkcardtype() {
+
+    //return value to randomcardassign add condition to randomcardassign
+}
+
 function randomcardassign() {
 
-
+    temppercent = Math.floor(Math.random() * 10);
     tempnumbercard = Math.floor(Math.random() * 10);
     tempcolourcard = colour[Math.floor(Math.random() * 5)];
 
-    chandnum.push([tempnumbercard, tempcolourcard]);
+    if (temppercent >= 3) {
+
+        chandnum.push([tempnumbercard, tempcolourcard]);
+    }
 
     //chances to be added and at least on number card to be added
-
-    chadpower.push(powercard[Math.floor(Math.random() * 4)]);
+    else {
+        chadpower.push(powercard[Math.floor(Math.random() * 4)]);
+    }
 
 }
 
@@ -109,11 +118,11 @@ function usepcard(pselection) {
         reverse(col1, col2, num1, num2)
 
     }
-    
+
 
 }
 
-function ranindiassign(){
+function ranindiassign() {
 
     return colour[Math.floor(Math.random() * 5)];
 
