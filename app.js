@@ -1,6 +1,6 @@
 //list of powercards
 
-let powercard = document.getElementsByClassName("powercard");
+let powercard = document.getElementsByClassName("powercard"); //put class or id here
 let powercards = [...powercard]
 
 //list of normalcards 
@@ -14,7 +14,7 @@ let counter = document.querySelector(".moves");
 
 //cards on hand
 
-var colourcard = ['red', 'blue', 'green', 'yellow']
+var colour = ['red', 'blue', 'green', 'yellow']
 var powercard = ['reversecard', 'skip', 'operatorchanger', 'addmove', 'indicatorchange']
 var operation = ['+', '-', '*', '/']
 var chandnum = [];
@@ -31,8 +31,8 @@ var colourind2;
 function randomcardassign() {
 
 
-    tempnumbercard = Math.floor(Math.random() * 11);
-    tempcolourcard = colourcard[Math.floor(Math.random() * 5)];
+    tempnumbercard = Math.floor(Math.random() * 10);
+    tempcolourcard = colour[Math.floor(Math.random() * 5)];
 
     chandnum.push([tempnumbercard, tempcolourcard]);
 
@@ -109,10 +109,15 @@ function usepcard(pselection) {
         reverse(col1, col2, num1, num2)
 
     }
+    
 
 }
 
+function ranindiassign(){
 
+    return colour[Math.floor(Math.random() * 5)];
+
+}
 
 
 
