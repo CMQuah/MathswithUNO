@@ -610,10 +610,12 @@
 	
 	function updateRandomIndicator1(){
 		document.getElementById("CardIndicator1").style.backgroundColor = generatedIndicator();
+		document.getElementById("miniIndicator1").style.backgroundColor = document.getElementById("CardIndicator1").style.backgroundColor;
 	}
 	
 	function updateRandomIndicator2(){
 		document.getElementById("CardIndicator2").style.backgroundColor = generatedIndicator();
+		document.getElementById("miniIndicator2").style.backgroundColor = document.getElementById("CardIndicator2").style.backgroundColor;
 	}	
 
 	function updateRandomOperator(){
@@ -637,8 +639,8 @@
 	document.getElementById("PowerBottomBar").onclick = function() { closeBottomDialog()};
 	
 	function showBottomDialog(){
-		document.getElementById("miniIndicator1").style.backgroundColor = document.getElementById("CardIndicator1").style.backgroundColor;
-		document.getElementById("miniIndicator2").style.backgroundColor = document.getElementById("CardIndicator2").style.backgroundColor;
+		//document.getElementById("miniIndicator1").style.backgroundColor = document.getElementById("CardIndicator1").style.backgroundColor;
+		//document.getElementById("miniIndicator2").style.backgroundColor = document.getElementById("CardIndicator2").style.backgroundColor;
 		//document.getElementById('miniOperator').querySelectorAll('span')[0].innerHTML = document.getElementById('Operators').querySelectorAll('span')[0].innerHTML;
 		document.getElementById("CardHolder1").innerHTML = "";
 		document.getElementById("CardHolder2").innerHTML = "";
