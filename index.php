@@ -116,8 +116,11 @@
 </html>
 
 <style>
-    body{
-		background-image: url('image/mainmenu.jpg');
+        html {
+	    zoom: 0.8; 
+	}
+        body{
+	    background-image: url('image/mainmenu.jpg');
 	    -webkit-background-size: cover;
 	    -moz-background-size: cover;
 	    -o-background-size: cover;
@@ -743,7 +746,7 @@
 	
 	var colour = ['red', 'blue', 'green', 'yellow'];
 	var powercard = ['reversecard', 'skip', 'operatorchanger', 'addmove', 'indicatorchange'];
-	var operation = ['+', '-', 'x', 'รท'];
+	var operation = ['+', '-', 'x', '÷'];
 	var chandnum = [];
 	var chandpower = []; 
 	
@@ -826,7 +829,7 @@
 				case "X":
 					answer = Number(card1) * Number(card2);
 					break;
-				case "รท":{
+				case "÷":{
 					answer = Number(card1) / Number(card2);
 					answer = Math.round(answer);
 					input = Math.round(input);
