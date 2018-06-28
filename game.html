@@ -31,7 +31,7 @@
 				<span style="color: white; font-size:100px;">=</span>
 			</div>
 			<div id="AnswerContainer">
-				<input id="AnswerInput" type="number" style="width: 300px; height: 75px; font-size: 50px;" onkeydown="checkAnswer(this)"/>
+				<input id="AnswerInput" type="number" style="width: 300px; height: 75px; font-size: 50px;" pattern="[0-9]" title="Numbers only" onkeydown="checkAnswer(this)"/>
 			</div>
 		</div>
 		<div id="GameBottomBar">
@@ -476,7 +476,7 @@
 		text-align: center;
 		font-size: 80px;
     	width: 50px;
-        height 50px;
+        height: 50px;
 		border: 1px solid white;
 		cursor: pointer;
     }
@@ -734,6 +734,7 @@
 		tempnumbercard = Math.floor(Math.random() * 10);
 		temppowercard = powercard[Math.floor(Math.random() *5)];
 		tempcolourcard = colour[Math.floor(Math.random() * 4)];
+		var hexcolor ="";
 		
 		//Check number card is whether 0 or not
 		var i = 0;
@@ -745,10 +746,25 @@
 			i++;
 		}
 		
+		switch(colour[Math.floor(Math.random() * 4)]){
+			case "G":
+				hexcolor = "#53BF73";
+				break;
+			case "B":
+				hexcolor = "#61B0FF";
+				break;
+			case "Y":
+				hexcolor = "#FFE371";
+				break;
+			case "R":
+				hexcolor = "#FF5454";
+				break;
+		}
 		
 		if(InitialDraw > 0 || skipPower == 1 || emptyLength == 4){
 			//var cardElement = '<div ondragstart="drag(event)" style="left: 0px; width: 100%; height: 100%; background-color: '+tempcolourcard+'; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">'+tempnumbercard+'</span></div>';
 			var cardDrawed = "/"+tempcolourcard+tempnumbercard+".png";
+
 			var cardElement = '<div ondragstart="drag(event)" style="left: 0px; width: 100%; height: 100%; background-size: contain; background-image: url(image/CardDeck/Number'+cardDrawed+'); position: relative;"><span style="display:none">'+tempnumbercard+'</span></div>';
 			cardDrawType = 0;
 			return cardElement;
@@ -778,16 +794,16 @@
 	function generatedIndicator(){
 		switch(colour[Math.floor(Math.random() * 4)]){
 			case "G":
-				return "green";
+				return "#53BF73";
 				break;
 			case "B":
-				return "blue";
+				return "#61B0FF";
 				break;
 			case "Y":
-				return "yellow";
+				return "#FFE371";
 				break;
 			case "R":
-				return "red";
+				return "#FF5454";
 				break;
 		}
 	}
@@ -809,22 +825,61 @@
 		if(event.key === 'Enter') {
 			var input = ele.value
 			var card1 = document.getElementById('CardContainer1').querySelectorAll('span')[0].innerHTML;
-			var color1 = document.getElementById('CardContainer1').querySelectorAll('div')[0].style.backgroundColor;
 			var inColor1 = document.getElementById('CardIndicator1').style.backgroundColor;
 			var operator = document.getElementById('Operators').querySelectorAll('span')[0].innerHTML;
-			var color2 = document.getElementById('CardContainer2').querySelectorAll('div')[0].style.backgroundColor;
 			var inColor2 = document.getElementById('CardIndicator2').style.backgroundColor;
 			var card2 = document.getElementById('CardContainer2').querySelectorAll('span')[0].innerHTML;
 			var answer;
 			var matchColor = 0;
-							
-			if(color1 == inColor1){
-				matchColor++;
-			}
-			if(color2 == inColor2){
-				matchColor++;
-			}
 			
+			var cardcolor1 = document.getElementById('CardContainer1').querySelectorAll('div')[0];
+			var cardstyle1 = cardcolor1.currentStyle || window.getComputedStyle(cardcolor1, false);
+			var	bi1 = cardstyle1.backgroundImage.slice(4, -1).replace(/"/g, "");
+			cardcolor1 = bi1.substring(bi1.lastIndexOf('/')+1).charAt(0);
+			
+			var cardcolor2 = document.getElementById('CardContainer2').querySelectorAll('div')[0];
+			var	cardstyle2 = cardcolor2.currentStyle || window.getComputedStyle(cardcolor2, false);
+			var	bi2 = cardstyle2.backgroundImage.slice(4, -1).replace(/"/g, "");
+			cardcolor2 = bi2.substring(bi2.lastIndexOf('/')+1).charAt(0);
+							
+			switch(cardcolor1){
+				case "G":
+					cardcolor1 = "#53BF73";
+					break;
+				case "B":
+					cardcolor1 = "#61B0FF";
+					break;
+				case "Y":
+					cardcolor1 = "#FFE371";
+					break;
+				case "R":
+					cardcolor1 = "#FF5454";
+					break;
+			}	
+			
+			switch(cardcolor2){
+				case "G":
+					cardcolor2 = "#53BF73";
+					break;
+				case "B":
+					cardcolor2 = "#61B0FF";
+					break;
+				case "Y":
+					cardcolor2 = "#FFE371";
+					break;
+				case "R":
+					cardcolor2 = "#FF5454";
+					break;
+			}	
+			
+			if(convertHex(cardcolor1)== inColor1){
+				matchColor++;
+			}
+
+			if(convertHex(cardcolor2) == inColor2){
+				matchColor++;
+			}
+
 			switch(operator){
 				case "+":
 					answer = Number(card1) + Number(card2);
@@ -1039,14 +1094,14 @@
 				var colorBar2 = document.createElement('div');
 				colorBar1.id = "ColorChanger1";
 				colorBar2.id = "ColorChanger2";
-				colorBar1.innerHTML = '<div class="indicatorChoice" style="background:red;" onclick="indicatorSelect(this)"></div>'
-				                       +'<div class="indicatorChoice" style="background:yellow;" onclick="indicatorSelect(this)"></div>'
-									   +'<div class="indicatorChoice" style="background:green;" onclick="indicatorSelect(this)"></div>'
-									   +'<div class="indicatorChoice" style="background:blue;" onclick="indicatorSelect(this)"></div>';
-				colorBar2.innerHTML = '<div class="indicatorChoice" style="background:red;" onclick="indicatorSelect(this)"></div>'
-					   +'<div class="indicatorChoice" style="background:yellow;" onclick="indicatorSelect(this)"></div>'
-					   +'<div class="indicatorChoice" style="background:green;" onclick="indicatorSelect(this)"></div>'
-					   +'<div class="indicatorChoice" style="background:blue;" onclick="indicatorSelect(this)"></div>';
+				colorBar1.innerHTML = '<div class="indicatorChoice" style="background:#FF5454;" onclick="indicatorSelect(this)"></div>'
+				                       +'<div class="indicatorChoice" style="background:#FFE371;" onclick="indicatorSelect(this)"></div>'
+									   +'<div class="indicatorChoice" style="background:#53BF73;" onclick="indicatorSelect(this)"></div>'
+									   +'<div class="indicatorChoice" style="background:#61B0FF;" onclick="indicatorSelect(this)"></div>';
+				colorBar2.innerHTML = '<div class="indicatorChoice" style="background:#FF5454;" onclick="indicatorSelect(this)"></div>'
+					   +'<div class="indicatorChoice" style="background:#FFE371;" onclick="indicatorSelect(this)"></div>'
+					   +'<div class="indicatorChoice" style="background:#53BF73;" onclick="indicatorSelect(this)"></div>'
+					   +'<div class="indicatorChoice" style="background:#61B0FF;" onclick="indicatorSelect(this)"></div>';
 				
 				document.getElementById("GameContentContainer").appendChild(colorBar1);
 				document.getElementById("GameContentContainer").appendChild(colorBar2);
@@ -1117,6 +1172,17 @@
 		
 	}
 	
+	//Hex Converter
+	function convertHex(hex){
+		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		r = parseInt(result[1], 16);
+		g = parseInt(result[2], 16);
+		b = parseInt(result[3], 16);
+
+		result = 'rgb('+r+', '+g+', '+b+')';
+		return result;
+	}
+	
 	//Timer
 	function timer() {
 
@@ -1129,7 +1195,7 @@
 			// Convert current minutes to total seconds for easier calculation.
 			var seconds = date.getMinutes() * 60 + date.getSeconds();
 
-			// Setting up the timer desired (5 minutes)
+			// Setting up the timer desi#FF5454 (5 minutes)
 			var timerMin =  60 * 5;
 
 			// Time left from the countdown
