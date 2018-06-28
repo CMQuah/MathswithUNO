@@ -14,7 +14,7 @@
 			<button id="exitBtn" class="btn" style="cursor: pointer;">EXIT</button>
 			<h2 class="float_center" style="text-align: center;" >SCORE<br/><span id='currentScore'>0</span></h2>
 			<h2 style="display: inline-block; float: right; text-align: center;">MOVE<br/><span id="currentMoveLeft">30</span></h2>
-			<h2 style="padding-right:20px; display: inline-block; float: right; text-align: center;">TIMER<br/><span id="timer">30</span></h2>
+			<h2 style="padding-right:20px; display: inline-block; float: right; text-align: center;">TIMER<br/><span id="timer"></span></h2>
 		</div>
 		<div id="GameContentContainer">
 			<div id="CardIndicator1">
@@ -506,7 +506,7 @@
 		updateRandomOperator();
 		InitialDraw = 0;
 		initialdrawHoldingCard();
-		timer();
+		startTimer();
 		
 		/* Refresh page dialog*/
 		window.onbeforeunload = function ()
@@ -1186,35 +1186,29 @@
 	}
 	
 	//Timer
-	function timer() {
+    window.onload = function () {
 
-    // Update the count down every 1 second
-    var x = setInterval(function() {
+        var duration = 60 * 5, // Set to 5 minutes
+            display = document.querySelector('#timer');
+        startTimer(duration, display);
+    };
 
-			// Get today's date and time
-			var date = new Date();
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
 
-			// Convert current minutes to total seconds for easier calculation.
-			var seconds = date.getMinutes() * 60 + date.getSeconds();
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
 
-			// Setting up the timer desi#FF5454 (5 minutes)
-			var timerMin =  60 * 5;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
 
-			// Time left from the countdown
-			var timeLeft = timerMin - seconds % timerMin;
+            display.textContent = minutes + ":" + seconds;
 
-			// Format seconds back into Minute:Second
-			var timerResult = parseInt(timeLeft / 60) + ':' + timeLeft % 60;
+            if (--timer < 0) {
+                display.textContent = "End";
+            }
+        }, 1000);
+    }
 
-			// Display the result in the element with id="timer"
-			document.getElementById('timer').innerHTML = timerResult;
-
-			// If the countdown is finished, write some text
-			if (timeLeft <= 0) {
-				clearInterval(x);
-				document.getElementById("timer").innerHTML = "End";
-			}
-		}, 1000);
-
-	}
 </script>
