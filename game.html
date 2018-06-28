@@ -1,14 +1,3 @@
-<?php
-/*
-1. Design Main Menu (Title, Start Game, ScoreBoard, HowtoPlay)(Page)- HTML
-2. Start Game - game page 
-   - Set all the UI Card location
-   - Create click event and chg css (Javascript).
-3. Scoreboard - Table and Display Previous GamePlay data.(can be online ranking).
-4. HowtoPlay - Just Write Instructions.
-*/
-?>
-
 <html>
 	<div id="MainContainer">
 		<div id="HeaderContainer">
@@ -25,6 +14,7 @@
 			<button id="exitBtn" class="btn" style="cursor: pointer;">EXIT</button>
 			<h2 class="float_center" style="text-align: center;" >SCORE<br/><span id='currentScore'>0</span></h2>
 			<h2 style="display: inline-block; float: right; text-align: center;">MOVE<br/><span id="currentMoveLeft">30</span></h2>
+			<h2 style="padding-right:20px; display: inline-block; float: right; text-align: center;">TIMER<br/><span id="timer">30</span></h2>
 		</div>
 		<div id="GameContentContainer">
 			<div id="CardIndicator1">
@@ -41,7 +31,7 @@
 				<span style="color: white; font-size:100px;">=</span>
 			</div>
 			<div id="AnswerContainer">
-				<input id="AnswerInput" type="number" style="width: 300px; height: 75px; font-size: 50px;" onkeydown="checkAnswer(this)"/>
+				<input id="AnswerInput" type="number" style="width: 300px; height: 75px; font-size: 50px;" pattern="[0-9]" title="Numbers only" onkeydown="checkAnswer(this)"/>
 			</div>
 		</div>
 		<div id="GameBottomBar">
@@ -117,6 +107,7 @@
 
 <style>
     body{
+		zoom: 0.8;
 		background-image: url('image/mainmenu.jpg');
 	    -webkit-background-size: cover;
 	    -moz-background-size: cover;
@@ -200,12 +191,11 @@
 		left: 15%;
 		top: 25%;
 	}
-
 	#CardContainer1{
 		padding: 20px;
 		background-color: white;
-		width: 180px;
-		height: 280px;
+		width: 181px;
+		height: 247px;
 		position: fixed;
 		left: 15%;
 		top: 35%;
@@ -214,8 +204,8 @@
 	#CardContainer2{
 		padding: 20px;
 		background-color: white;
-		width: 180px;
-		height: 280px;
+		width: 181px;
+		height: 247px;
 		position: fixed;
 		left: 37%;
 		top: 35%;
@@ -275,7 +265,6 @@
 		transform: rotate(-135deg);
 		-webkit-transform: rotate(-135deg);
 	}
-
 	.down {
 		transform: rotate(45deg);
 		-webkit-transform: rotate(45deg);
@@ -321,8 +310,8 @@
 	#NumberCardHolder1{
 		padding: 20px;
 		background-color: white;
-		width: 180px;
-		height: 280px;
+		width: 181px;
+		height: 247px;
 		position: fixed;
 		left: 20%;
 		top: 28%;
@@ -331,8 +320,8 @@
 	#NumberCardHolder2{
 		padding: 20px;
 		background-color: white;
-		width: 180px;
-		height: 280px;
+		width: 181px;
+		height: 247px;
 		position: fixed;
 		left: 35%;
 		top: 28%;
@@ -341,18 +330,17 @@
 	#NumberCardHolder3{
 		padding: 20px;
 		background-color: white;
-		width: 180px;
-		height: 280px;
+		width: 181px;
+		height: 247px;
 		position: fixed;
 		left: 50%;
 		top: 28%;
 	}
-
 	#NumberCardHolder4{
 		padding: 20px;
 		background-color: white;
-		width: 180px;
-		height: 280px;
+		width: 181px;
+		height: 247px;
 		position: fixed;
 		left: 65%;
 		top: 28%;
@@ -361,18 +349,17 @@
 	#ActionCardHolder1{
 		padding: 20px;
 		background-color: white;
-		width: 180px;
-		height: 280px;
+		width: 181px;
+		height: 247px;
 		position: fixed;
 		left: 20%;
 		top: 28%;
 	}
-
 	#ActionCardHolder2{
 		padding: 20px;
 		background-color: white;
-		width: 180px;
-		height: 280px;
+		width: 181px;
+		height: 247px;
 		position: fixed;
 		left: 35%;
 		top: 28%;
@@ -381,8 +368,8 @@
 	#ActionCardHolder3{
 		padding: 20px;
 		background-color: white;
-		width: 180px;
-		height: 280px;
+		width: 181px;
+		height: 247px;
 		position: fixed;
 		left: 50%;
 		top: 28%;
@@ -391,8 +378,8 @@
 	#ActionCardHolder4{
 		padding: 20px;
 		background-color: white;
-		width: 180px;
-		height: 280px;
+		width: 181px;
+		height: 247px;
 		position: fixed;
 		left: 65%;
 		top: 28%;
@@ -418,8 +405,8 @@
 	#CardHolder1{
 		padding: 10px;
 		background-color: white;
-		width: 90px;
-		height: 140px;
+		width: 90.5px;
+		height: 123.5px;
 		position: fixed;
 		left: 41%;
 		top: 72%;
@@ -428,8 +415,8 @@
 	#CardHolder2{
 		padding: 10px;
 		background-color: white;
-		width: 90px;
-		height: 140px;
+		width: 90.5px;
+		height: 123.5px;
 		position: fixed;
 		left: 50%;
 		top: 72%;
@@ -446,8 +433,8 @@
 	#PowerHolder{
 		padding: 10px;
 		background-color: white;
-		width: 90px;
-		height: 140px;
+		width: 90.5px;
+		height: 123.5px;
 		position: fixed;
 		left: 46%;
 		top: 72%;
@@ -489,14 +476,12 @@
 		text-align: center;
 		font-size: 80px;
     	width: 50px;
-        height 50px;
 		border: 1px solid white;
 		cursor: pointer;
     }
 </style>
 
 <script type="text/javascript">
-
 	document.getElementById("startGame").onclick = function(){ startGame() };
 	document.getElementById("howToPlay").onclick = function(){ howToPlay() };
 	document.getElementById("scoreBoard").onclick = function(){ scoreBoard() };
@@ -521,6 +506,7 @@
 		updateRandomOperator();
 		InitialDraw = 0;
 		initialdrawHoldingCard();
+		timer();
 		
 		/* Refresh page dialog*/
 		window.onbeforeunload = function ()
@@ -591,7 +577,6 @@
 			}
 		}
 		
-
 	}
 	
 	/*function drawNumberCardforHolding(){
@@ -617,7 +602,6 @@
 		document.getElementById("CardIndicator2").style.backgroundColor = generatedIndicator();
 		document.getElementById("miniIndicator2").style.backgroundColor = document.getElementById("CardIndicator2").style.backgroundColor;
 	}	
-
 	function updateRandomOperator(){
 		document.getElementById("Operators").innerHTML = '<span style="color: white; font-size:100px;">'+generatedOperator()+'</span>';
 		document.getElementById('miniOperator').querySelectorAll('span')[0].innerHTML = document.getElementById('Operators').querySelectorAll('span')[0].innerHTML;
@@ -679,11 +663,9 @@
 	function allowDrop(ev) {
 		ev.preventDefault();
 	}
-
 	function drag(ev) {
 		ev.dataTransfer.setData("text", ev.target.id);
 	}
-
 	function drop(ev) {
 		ev.preventDefault();
 		var data = ev.dataTransfer.getData("text");
@@ -699,7 +681,6 @@
 		while(holderType.className != "miniHolder"){
 			holderType = holderType.parentNode;
 		}
-
 		switch(holderType.id){
 			case "CardHolder1":
 				document.getElementById("CardContainer1").innerHTML = "";
@@ -741,9 +722,9 @@
 		document.getElementById("PowerBottomBar").style.pointerEvents = 'auto';
 	}
 	
-	var colour = ['red', 'blue', 'green', 'yellow'];
+	var colour = ['R', 'B', 'G', 'Y'];
 	var powercard = ['reversecard', 'skip', 'operatorchanger', 'addmove', 'indicatorchange'];
-	var operation = ['+', '-', 'x', 'รท'];
+	var operation = ['+', '-', 'x', '&#247;'];
 	var chandnum = [];
 	var chandpower = []; 
 	
@@ -752,6 +733,7 @@
 		tempnumbercard = Math.floor(Math.random() * 10);
 		temppowercard = powercard[Math.floor(Math.random() *5)];
 		tempcolourcard = colour[Math.floor(Math.random() * 4)];
+		var hexcolor ="";
 		
 		//Check number card is whether 0 or not
 		var i = 0;
@@ -763,22 +745,43 @@
 			i++;
 		}
 		
+		switch(colour[Math.floor(Math.random() * 4)]){
+			case "G":
+				hexcolor = "#53BF73";
+				break;
+			case "B":
+				hexcolor = "#61B0FF";
+				break;
+			case "Y":
+				hexcolor = "#FFE371";
+				break;
+			case "R":
+				hexcolor = "#FF5454";
+				break;
+		}
 		
 		if(InitialDraw > 0 || skipPower == 1 || emptyLength == 4){
-			var cardElement = '<div ondragstart="drag(event)" style="left: 0px; width: 100%; height: 100%; background-color: '+tempcolourcard+'; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">'+tempnumbercard+'</span></div>';
+			//var cardElement = '<div ondragstart="drag(event)" style="left: 0px; width: 100%; height: 100%; background-color: '+tempcolourcard+'; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">'+tempnumbercard+'</span></div>';
+			var cardDrawed = "/"+tempcolourcard+tempnumbercard+".png";
+
+			var cardElement = '<div ondragstart="drag(event)" style="left: 0px; width: 100%; height: 100%; background-size: contain; background-image: url(image/CardDeck/Number'+cardDrawed+'); position: relative;"><span style="display:none">'+tempnumbercard+'</span></div>';
 			cardDrawType = 0;
 			return cardElement;
 		}else{
 			if (temppercent>=3){
-				var cardElement = '<div ondragstart="drag(event)" style="left: 0px; width: 100%; height: 100%; background-color: '+tempcolourcard+'; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">'+tempnumbercard+'</span></div>';
-				cardDrawType = 0;
+				//var cardElement = '<div ondragstart="drag(event)" style="left: 0px; width: 100%; height: 100%; background-color: '+tempcolourcard+'; position: relative;"><span style="color: white; font-size: 10vw; margin-top: 20%; margin-left: 28%; position: absolute;">'+tempnumbercard+'</span></div>';
+				var cardDrawed = "/"+tempcolourcard+tempnumbercard+".png";
+				var cardElement = '<div ondragstart="drag(event)" style="left: 0px; width: 100%; height: 100%; background-size: contain; background-image: url(image/CardDeck/Number'+cardDrawed+'); position: relative;"><span style="display:none">'+tempnumbercard+'</span></div>';
+					cardDrawType = 0;
 				return cardElement;
 				//chandnum.push([tempnumbercard, tempcolourcard]);
 			}
 			//chances to be added and at least on number card to be added
 			else{
 				//Return power card HTML.
-				var cardElement = '<div ondragstart="drag(event)" style="width: 100%; height: 100%; position: relative;"><span style="color: black; font-size: 25px; margin-top: 20%; margin-left: 10%; position: absolute;">'+temppowercard+'</span></div>';
+				//var cardElement = '<div ondragstart="drag(event)" style="width: 100%; height: 100%; position: relative;"><span style="color: black; font-size: 25px; margin-top: 20%; margin-left: 10%; position: absolute;">'+temppowercard+'</span></div>';
+				var cardDrawed = "/"+temppowercard+".png";
+				var cardElement = '<div ondragstart="drag(event)" style="width: 100%; height: 100%; position: relative; background-size: contain; background-image: url(image/CardDeck/Action'+cardDrawed+');"><span style="display: none;">'+temppowercard+'</span></div>';
 				cardDrawType = 1;
 				return cardElement;
 				//chadpower.push(powercard[Math.floor(Math.random() * 4)]);
@@ -788,33 +791,97 @@
 	}
 	
 	function generatedIndicator(){
-		return colour[Math.floor(Math.random() * 4)];
+		switch(colour[Math.floor(Math.random() * 4)]){
+			case "G":
+				return "#53BF73";
+				break;
+
+			case "B":
+				return "#61B0FF";
+				break;
+
+			case "Y":
+				return "#FFE371";
+				break;
+
+			case "R":
+				return "#FF5454";
+				break;
+		}
 	}
 	
 	function generatedOperator(){
 		return operation[Math.floor(Math.random() * 4)];
 	}
 	
+	//Function to Encode html entity by using javascript
+	var encodeHtmlEntity = function(str) {
+	  var buf = [];
+	  for (var i=str.length-1;i>=0;i--) {
+		buf.unshift(['&#', str[i].charCodeAt(), ';'].join(''));
+	  }
+	  return buf.join('');
+	};
+	
 	function checkAnswer(ele){
 		if(event.key === 'Enter') {
 			var input = ele.value
 			var card1 = document.getElementById('CardContainer1').querySelectorAll('span')[0].innerHTML;
-			var color1 = document.getElementById('CardContainer1').querySelectorAll('div')[0].style.backgroundColor;
 			var inColor1 = document.getElementById('CardIndicator1').style.backgroundColor;
 			var operator = document.getElementById('Operators').querySelectorAll('span')[0].innerHTML;
-			var color2 = document.getElementById('CardContainer2').querySelectorAll('div')[0].style.backgroundColor;
 			var inColor2 = document.getElementById('CardIndicator2').style.backgroundColor;
 			var card2 = document.getElementById('CardContainer2').querySelectorAll('span')[0].innerHTML;
 			var answer;
 			var matchColor = 0;
+			
+			var cardcolor1 = document.getElementById('CardContainer1').querySelectorAll('div')[0];
+			var cardstyle1 = cardcolor1.currentStyle || window.getComputedStyle(cardcolor1, false);
+			var	bi1 = cardstyle1.backgroundImage.slice(4, -1).replace(/"/g, "");
+			cardcolor1 = bi1.substring(bi1.lastIndexOf('/')+1).charAt(0);
+			
+			var cardcolor2 = document.getElementById('CardContainer2').querySelectorAll('div')[0];
+			var	cardstyle2 = cardcolor2.currentStyle || window.getComputedStyle(cardcolor2, false);
+			var	bi2 = cardstyle2.backgroundImage.slice(4, -1).replace(/"/g, "");
+			cardcolor2 = bi2.substring(bi2.lastIndexOf('/')+1).charAt(0);
 							
-			if(color1 == inColor1){
+			switch(cardcolor1){
+				case "G":
+					cardcolor1 = "#53BF73";
+					break;
+				case "B":
+					cardcolor1 = "#61B0FF";
+					break;
+				case "Y":
+					cardcolor1 = "#FFE371";
+					break;
+				case "R":
+					cardcolor1 = "#FF5454";
+					break;
+			}	
+			
+			switch(cardcolor2){
+				case "G":
+					cardcolor2 = "#53BF73";
+					break;
+				case "B":
+					cardcolor2 = "#61B0FF";
+					break;
+				case "Y":
+					cardcolor2 = "#FFE371";
+					break;
+				case "R":
+					cardcolor2 = "#FF5454";
+					break;
+			}	
+			
+			if(convertHex(cardcolor1)== inColor1){
 				matchColor++;
 			}
-			if(color2 == inColor2){
+
+			if(convertHex(cardcolor2) == inColor2){
 				matchColor++;
 			}
-				
+
 			switch(operator){
 				case "+":
 					answer = Number(card1) + Number(card2);
@@ -826,14 +893,14 @@
 				case "X":
 					answer = Number(card1) * Number(card2);
 					break;
-				case "รท":{
-					answer = Number(card1) / Number(card2);
-					answer = Math.round(answer);
-					input = Math.round(input);
+				default:
+					if(encodeHtmlEntity(operator)== "&#247;"){
+						answer = Number(card1) / Number(card2);
+						answer = Math.round(answer);
+						input = Math.round(input);
 					}
 					break;
 			}
-
 			if (answer == "Infinity"){
 				alert("Bonus marks, Ihe answer is infinify (Any number divide by 0 is infinify).");
 				document.getElementById("AnswerInput").disabled = true;
@@ -1015,7 +1082,7 @@
 				operatorBar.innerHTML = '<div class="operatorsItem" onclick="operatorSelect(this)">+</div>'
 										+'<div class="operatorsItem" onclick="operatorSelect(this)">-</div>'
 										+'<div class="operatorsItem" onclick="operatorSelect(this)">x</div>'
-										+'<div class="operatorsItem" onclick="operatorSelect(this)">รท</div>';
+										+'<div class="operatorsItem" onclick="operatorSelect(this)">&#247;</div>';
 				document.getElementById("GameContentContainer").appendChild(operatorBar);
 				document.getElementById("Operators").style.display = "none";
 				break;
@@ -1029,14 +1096,14 @@
 				var colorBar2 = document.createElement('div');
 				colorBar1.id = "ColorChanger1";
 				colorBar2.id = "ColorChanger2";
-				colorBar1.innerHTML = '<div class="indicatorChoice" style="background:red;" onclick="indicatorSelect(this)"></div>'
-				                       +'<div class="indicatorChoice" style="background:yellow;" onclick="indicatorSelect(this)"></div>'
-									   +'<div class="indicatorChoice" style="background:green;" onclick="indicatorSelect(this)"></div>'
-									   +'<div class="indicatorChoice" style="background:blue;" onclick="indicatorSelect(this)"></div>';
-				colorBar2.innerHTML = '<div class="indicatorChoice" style="background:red;" onclick="indicatorSelect(this)"></div>'
-					   +'<div class="indicatorChoice" style="background:yellow;" onclick="indicatorSelect(this)"></div>'
-					   +'<div class="indicatorChoice" style="background:green;" onclick="indicatorSelect(this)"></div>'
-					   +'<div class="indicatorChoice" style="background:blue;" onclick="indicatorSelect(this)"></div>';
+				colorBar1.innerHTML = '<div class="indicatorChoice" style="background:#FF5454;" onclick="indicatorSelect(this)"></div>'
+				                       +'<div class="indicatorChoice" style="background:#FFE371;" onclick="indicatorSelect(this)"></div>'
+									   +'<div class="indicatorChoice" style="background:#53BF73;" onclick="indicatorSelect(this)"></div>'
+									   +'<div class="indicatorChoice" style="background:#61B0FF;" onclick="indicatorSelect(this)"></div>';
+				colorBar2.innerHTML = '<div class="indicatorChoice" style="background:#FF5454;" onclick="indicatorSelect(this)"></div>'
+					   +'<div class="indicatorChoice" style="background:#FFE371;" onclick="indicatorSelect(this)"></div>'
+					   +'<div class="indicatorChoice" style="background:#53BF73;" onclick="indicatorSelect(this)"></div>'
+					   +'<div class="indicatorChoice" style="background:#61B0FF;" onclick="indicatorSelect(this)"></div>';
 				
 				document.getElementById("GameContentContainer").appendChild(colorBar1);
 				document.getElementById("GameContentContainer").appendChild(colorBar2);
@@ -1105,5 +1172,49 @@
 		document.getElementById("GameContainer").style.display = "none";
 		document.getElementById("MainContainer").style.display = "block";
 		
+	}
+	
+	//Hex Converter
+	function convertHex(hex){
+		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		r = parseInt(result[1], 16);
+		g = parseInt(result[2], 16);
+		b = parseInt(result[3], 16);
+
+		result = 'rgb('+r+', '+g+', '+b+')';
+		return result;
+	}
+	
+	//Timer
+	function timer() {
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+			// Get today's date and time
+			var date = new Date();
+
+			// Convert current minutes to total seconds for easier calculation.
+			var seconds = date.getMinutes() * 60 + date.getSeconds();
+
+			// Setting up the timer desi#FF5454 (5 minutes)
+			var timerMin =  60 * 5;
+
+			// Time left from the countdown
+			var timeLeft = timerMin - seconds % timerMin;
+
+			// Format seconds back into Minute:Second
+			var timerResult = parseInt(timeLeft / 60) + ':' + timeLeft % 60;
+
+			// Display the result in the element with id="timer"
+			document.getElementById('timer').innerHTML = timerResult;
+
+			// If the countdown is finished, write some text
+			if (timeLeft <= 0) {
+				clearInterval(x);
+				document.getElementById("timer").innerHTML = "End";
+			}
+		}, 1000);
+
 	}
 </script>
